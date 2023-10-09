@@ -1,1 +1,24 @@
 #+title: Swoosh
+
+Store buffers in a ring for quick access similar to registers. This is useful for quickly moving between a short list of buffers, or having a single buffer you want to jump back to.
+
+* Installation
+Example installing using vc-use-package:
+#+begin_src emacs-lisp
+  (use-package swoosh
+  :vc (:fetcher github :repo haxxflaxx/swoosh)
+  :bind (("M-[" . swoosh-prev-buffer)
+         ("M-]" . swoosh-next-buffer)
+         ("M-/" . swoosh-toggle-buffer)
+         ("M-g M-s" . swoosh-list-buffers)
+         ("M-g s" . swoosh-add-buffer)))
+#+end_src
+
+* Usage
+~swoosh-next-buffer~ and ~swoosh-prev-buffer~ will move and back forward in the buffer list. If no buffer has been added to the ring it simply goes to the last buffer, same if only one buffer has been added and it is the current buffer.
+
+~swoosh-toggle-buffer~ toggles the inclusion of the current buffer in the buffer ring.
+
+~swoosh-list-buffers~ opens a buffer listing the buffer ring. This can be used to re-order the ring using =S-n= and =S-p=, or remove them using =d=.
+
+~swoosh-add-buffer~ add buffers to the ring using completing-read and open buffers.
